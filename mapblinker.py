@@ -1,5 +1,3 @@
-from timeit import repeat
-from turtle import delay
 import rasterio
 import numpy as np
 import pyproj
