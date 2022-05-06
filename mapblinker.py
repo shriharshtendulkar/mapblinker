@@ -1,11 +1,25 @@
 import rasterio
-import numpy as np
 import pyproj
-from matplotlib import pyplot as plt
-import matplotlib.animation as animation
+
+import logging
 import copy
 
+import numpy as np
+import datetime as dt
+
+from matplotlib import pyplot as plt
+import matplotlib.animation as animation
+
 plt.ioff()
+
+logger = logging.getLogger()
+formatter = logging.Formatter(fmt="%(asctime)s - %(message)s")
+loggingfile = logging.FileHandler(
+    "mb_log_{}.log".format(dt.datetime.utcnow().isoformat())
+)
+loggingfile.setFormatter(formatter)
+loggingfile.setLevel("DEBUG")
+logger.addHandler(loggingfile)
 
 
 class MapBlinker(object):
@@ -19,7 +33,10 @@ class MapBlinker(object):
         snapshot_size=50,
         snapshot_root="snap",
         max_frac_zero=0.7,
+        logger=logger,
     ):
+
+        self.logger = logger
 
         self.file1 = file1
         self.file2 = file2
